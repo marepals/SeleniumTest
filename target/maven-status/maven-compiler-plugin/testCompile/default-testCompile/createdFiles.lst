@@ -1,0 +1,4 @@
+suites\FireFoxTestSuite.class
+tests\BasicAjaxPageDefaultsTest.class
+suites\ChromeTestSuite.class
+tests\BasicAjaxPageTest.class
