@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b7b4bd26-083f-4a92-8ad5-60a39d4d09c5" name="Default" comment="Test Changes 123">
+    <list default="true" id="b7b4bd26-083f-4a92-8ad5-60a39d4d09c5" name="Default" comment="updated comment">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/test/selenium/utils/Driver.java" afterPath="$PROJECT_DIR$/src/main/java/test/selenium/utils/Driver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/suites/ChromeTestSuite.java" afterPath="$PROJECT_DIR$/src/test/java/suites/ChromeTestSuite.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/suites/FireFoxTestSuite.java" afterPath="$PROJECT_DIR$/src/test/java/suites/FireFoxTestSuite.java" />
     </list>
     <ignored path="SeleniumTest.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -71,8 +69,8 @@
       <file leaf-file-name="Driver.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/test/selenium/utils/Driver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33539096">
-              <caret line="16" column="62" selection-start-line="16" selection-start-column="62" selection-end-line="16" selection-end-column="62" />
+            <state vertical-scroll-proportion="0.4547325">
+              <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -154,6 +152,9 @@
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
       </map>
+    </option>
+    <option name="PUSH_TAGS">
+      <GitPushTagMode />
     </option>
   </component>
   <component name="GradleLocalSettings">
@@ -828,6 +829,13 @@
       <option name="number" value="Default" />
       <updated>1453142308778</updated>
     </task>
+    <task id="LOCAL-00001" summary="Test Changes 123">
+      <created>1458944428102</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1458944428102</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -903,7 +911,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Test Changes 123" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test Changes 123" />
+    <MESSAGE value="updated comment" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated comment" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1361,8 +1370,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/test/selenium/utils/Driver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33539096">
-          <caret line="16" column="62" selection-start-line="16" selection-start-column="62" selection-end-line="16" selection-end-column="62" />
+        <state vertical-scroll-proportion="0.4547325">
+          <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
