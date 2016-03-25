@@ -10,11 +10,11 @@ import org.openqa.selenium.support.ui.Select;
 /**
  * Created by srikanth on 3/16/2016.
  */
-
+// right comment
 public class Driver {
 
     private static WebDriver driver;
-    public enum Browser {CHROME, IE, FIREFOX, HTMLUNIT, OPERA};
+    public enum Browser {CHROME, IE, FIREFOX, HTMLUNIT, OPERA}
     public static final long DEFAULT_TIMEOUT_SECONDS=10;
     public static String BROWSER_PROPERTY_NAME = "browser.name";
     public static Browser currentBrowser = null;
