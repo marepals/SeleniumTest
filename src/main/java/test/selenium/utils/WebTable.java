@@ -33,8 +33,7 @@ public class WebTable {
     }
 
     /**
-     * @return Whether this select element support selecting multiple options at the same time? This
-     * is done by checking the value of the "multiple" attribute.
+     * @return Whether this select element support selecting
      */
     public boolean isMultiple() {
         return isMulti;
