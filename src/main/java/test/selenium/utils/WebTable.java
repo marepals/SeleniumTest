@@ -15,90 +15,125 @@ import java.util.List;
 public class WebTable {
 
     private final WebElement element;
-    private final boolean isMulti;
+    private boolean hasHeader;
+    private boolean hasFooter;
 
     public WebTable(WebElement element) {
         String tagName = element.getTagName();
 
-        if (null == tagName || !"select".equals(tagName.toLowerCase())) {
-            throw new UnexpectedTagNameException("select", tagName);
+        if ( tagName == null || !tagName.toLowerCase().equals("table")) {
+            throw new UnexpectedTagNameException("table", tagName);
         }
 
         this.element = element;
-
-        String value = element.getAttribute("multiple");
-
-        // The atoms normalize the returned value, but check for "false"
-        isMulti = (value != null && !"false".equals(value));
+        hasHeader = true;
+        // set the table type later, by default, this will be a simple table.
     }
 
-    /**
-     * @return Whether this select element support selecting
-     */
-    public boolean isMultiple() {
-        return isMulti;
-    }
 
-    /**
-     * @return All options belonging to this select tag
-     */
-    public List<WebElement> getOptions() {
-        return element.findElements(By.tagName("option"));
-    }
+    public WebTable(WebElement element, boolean hasHeader, boolean hasFooter) {
+        String tagName = element.getTagName();
 
-    /**
-     * @return All selected options belonging to this select tag
-     */
-    public List<WebElement> getAllSelectedOptions() {
-        List<WebElement> toReturn = new ArrayList<>();
-
-        for (WebElement option : getOptions()) {
-            if (option.isSelected()) {
-                toReturn.add(option);
-            }
+        if ( tagName == null || !tagName.toLowerCase().equals("table")) {
+            throw new UnexpectedTagNameException("table", tagName);
         }
 
-        return toReturn;
+        this.element = element;
+        this.hasHeader = hasHeader;
+        this.hasFooter = hasFooter;
+        // set the table type later, by default, this will be a simple table.
+    }
+    //get cell data ( row name, column name)
+    // get cell data ( row id, column id)
+    // get header names
+    // get column names
+    // get column values ( column name)
+    // get row values ( row name)
+    // verify table row ( list of row elements, inorder
+    // get number of rows
+    // get number of columns
+
+    public int getRowCount(){
+            return element.findElements(By.cssSelector("tr")).size();
     }
 
-    /**
-     * @return The first selected option in this select tag (or the currently selected option in a
-     * normal select)
-     * @throws NoSuchElementException If no option is selected
-     */
-    public WebElement getFirstSelectedOption() {
-        for (WebElement option : getOptions()) {
-            if (option.isSelected()) {
-                return option;
-            }
-        }
-
-        throw new NoSuchElementException("No options are selected");
+    public int getColumnCount(){
+        List<WebElement> rows = element.findElements(By.cssSelector("tr"));
+        if(hasHeader)
+            return(rows.get(0).findElements(By.cssSelector("th")).size());
+        else
+            return(rows.get(0).findElements(By.cssSelector("td")).size());
     }
 
-    /**
-     * Select all options that display text matching the argument. That is, when given "Bar" this
-     * would select an option like:
-     * <p>
-     * &lt;option value="foo"&gt;Bar&lt;/option&gt;
-     *
-     * @param text The visible text to match against
-     * @throws NoSuchElementException If no matching option elements are found
-     */
-    public void selectByVisibleText(String text) {
-        // try to find the option via XPATH ...
-        List<WebElement> options =
-                element.findElements(By.xpath(".//option[normalize-space(.) = " + Quotes.escape(text) + "]"));
+    public String getCellData(int rowId, int columnId){
+        int rowCount;
+        int columnCount;
 
-        boolean matched = false;
-        for (WebElement option : options) {
+        rowCount = getRowCount();
+        columnCount = getColumnCount();
 
-            if (!isMultiple()) {
-                return;
+        if (rowId <=rowCount && columnId <= columnCount) {
+            List<WebElement> rows = element.findElements(By.cssSelector("tr"));
+            return rows.get(rowId-1).findElements(By.cssSelector("th,td")).get(columnId-1).getText();
+        }
+        else {
+            System.out.println("The row or column id is great then the number of rows/columns in the table");
+            System.out.println("rowID given "+rowId+ "rowCount in table "+rowCount);
+            System.out.println("columnID given "+columnId+ "columnCount in table "+columnCount);
+        }
+        return null;
+    }
+
+    public int getColumnId( String columnName){
+        List <WebElement> columns;
+        int columnId=0;
+        boolean found = false;
+
+        columns = element.findElement(By.cssSelector("tr")).findElements(By.cssSelector("th,td"));
+
+        for(WebElement column : columns) {
+            columnId++;
+            if(column.getText().toUpperCase().equals(columnName.toUpperCase())){
+                found = true;
+                break;
             }
-            matched = true;
+
+        }
+        if(found)
+            return columnId;
+        else {
+            System.out.println("Didn't find the given column - " + columnName);
+            return -1;
         }
 
+    }
+
+    public int getRowId(String rowName){
+        List<WebElement> rows = element.findElements(By.cssSelector("tr"));
+        int rowId = 0;
+        boolean found = false;
+        for(WebElement row : rows) {
+            rowId++;
+            if (row.findElement(By.cssSelector("th,td")).getText().equals(rowName)) {
+                found = true;
+                break;
+            }
+        }
+        if (found)
+            return rowId;
+        else {
+            System.out.println("Didn't find the given row - " + rowName);
+            return -1;
+        }
+    }
+
+    public String getCellData(String rowName, String columnName) {
+        int rowId = getRowId(rowName);
+        int columnId = getColumnId(columnName);
+        if(rowId >0 && columnId >0)
+            return getCellData(rowId, columnId);
+        else
+            return null;
     }
 }
 
