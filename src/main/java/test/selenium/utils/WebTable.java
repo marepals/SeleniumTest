@@ -107,7 +107,7 @@ public class WebTable {
         }
 
     }
-
+    // When you give a row Name, any value in the first column.
     public int getRowId(String rowName){
         List<WebElement> rows = element.findElements(By.cssSelector("tr"));
         int rowId = 0;
@@ -127,6 +127,35 @@ public class WebTable {
         }
     }
 
+    public int getRowId(String referenceColumnName, String referenceColumnValue){
+
+        int referenceColumnID = getColumnId(referenceColumnName);
+
+        if (referenceColumnID <= 0 ){
+            System.out.println("The given reference column names aren't valid - Reference column name - "+referenceColumnName);
+            return referenceColumnID;
+        }
+
+        List<WebElement> rows = element.findElements(By.cssSelector("tr"));
+
+        int rowId = 0;
+        boolean found = false;
+
+        for(WebElement row : rows) {
+            rowId++;
+            if (row.findElements(By.cssSelector("th,td")).get(referenceColumnID).getText().equals(referenceColumnValue)) {
+                found = true;
+                break;
+            }
+        }
+        if (found)
+            return rowId;
+        else {
+            System.out.println("Didn't find the given referenceColumnValue - " + referenceColumnValue);
+            return -1;
+        }
+    }
+
     public String getCellData(String rowName, String columnName) {
         int rowId = getRowId(rowName);
         int columnId = getColumnId(columnName);
@@ -134,6 +163,46 @@ public class WebTable {
             return getCellData(rowId, columnId);
         else
             return null;
+    }
+
+    //Get WebElement in a cell.
+
+    // Handle dynamic objects(links, buttons, checkbox, textboxes..etc) in a table.
+    /* action -
+        SELECT - CHECKBOX, RADIO BUTTON
+        ENTER_TEXT - TEXTBOX, TEXTAREA
+        GET_TEXT - TEXTBOX, TEXTAREA
+        CLICK - BUTTON, LINK
+    */
+
+    public String performAction(String referenceColumnName, String referenceColumnValue, String actionColumnName, String action,String actionOjectType,  int index) {
+
+        int actionColumnID = getColumnId(actionColumnName);
+        int rowId = getRowId(referenceColumnName, referenceColumnValue);
+
+        WebElement cellElement;
+
+        if (rowId <=0 || actionColumnID <=0)
+            return null;
+        switch (actionOjectType.toUpperCase().trim()) {
+            case "CHECKBOX":
+                break;
+            case "TEXTBOX":
+                break;
+            case "LINK":
+                //click the link;
+                cellElement = element.findElements(By.cssSelector("tr")).get(rowId).findElements(By.cssSelector("th,td")).get(actionColumnID);
+                cellElement.findElements(By.cssSelector("a")).get(index).click();
+                break;
+            case "BUTTON":
+                break;
+            default:
+                System.out.println("The given Action Object Type isn't valid - "+actionOjectType);
+        }
+        return null;
+    }
+    public String performAction(String referenceColumnName, String referenceColumnValue, String actionColumnName, String action, String actionObjectType) {
+        return performAction(referenceColumnName, referenceColumnValue, actionColumnName, action,actionObjectType, 0);
     }
 }
 
